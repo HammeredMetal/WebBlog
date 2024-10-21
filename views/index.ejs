@@ -1,0 +1,92 @@
+<%- include("partials/header.ejs") %>
+
+<div id="Div1">
+    <h2>Articles</h2>
+    <form action="/nav" method="POST">
+    <ul>
+      <% submissions.forEach(function(submission) { %>
+        <li><a href="/?id=<%= submission.id %>"><%= submission.title %></a></li>
+      <% }); %>
+    </ul>
+    </form>
+   </div>
+
+
+<div id="Div2">
+    <h1>
+Tech Blog
+    </h1>
+
+    <!-- Display selected post -->
+    <% if (locals.selectedPost) { %>
+      <h2>Selected Post</h2>
+      <h3><%= selectedPost.title %></h3>
+      <p><%= selectedPost.article %></p>
+
+      <!-- Edit Post Button-->
+      <h1>Edit Post</h1>
+      <form action="/edit" method="POST">
+        <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
+        <input type="submit" name="edit" value="Edit"/>
+      </form>
+
+      <!-- Delete Post Button-->
+    <h1>Delete Post</h1>
+    <form action="/delete" method="POST">
+      <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
+      <input type="submit" name="delete"  value="Delete"/>
+    </form>
+  <% } %>
+
+    <!-- Edit Post Functionality-->
+    <% if (locals.editedTitle) { %>
+      <h1>Your Edit was Successful</h1>
+      <h1><%= editPostId %></h1>
+      <h1><%= editedTitle %></h1>
+      <h1><%= editedText %></h1>
+      <% } else { %>
+      <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
+        <h1>Edit Post</h1>
+        <h1><%= editPostId %></h1>
+        <h1><%= editTitle %></h1>
+        <h1><%= editArticle %></h1>
+
+        <form action="/editSubmit" method="POST">
+          <input type="hidden" name="editId" value="<%= editPostId %>" />
+          <input type="text" name="titleEdit" value="<%= editTitle %>" />
+          <textarea name="textEdit"><%= editArticle %></textarea>
+          <input type="submit" value="OK" />
+        </form>
+      <% } else {%>
+          <% if (locals.latestSubmission) { %>
+            <h1>This is the title of your blog: <%= latestSubmission.title %></h1>
+            <h1>This is the text of your blog: <%= latestSubmission.article %></h1>
+        <% } else { %>
+        <h1>Landing Page</h1>
+        <% } %>
+      <% } %>
+    <% } %>
+
+    <!-- SUBMIT AN ARTICLE -->
+      <form action="/submit" method="POST">
+        <input type="text" name="title" placeholder="Enter article title here" />
+        <input type="text" name="text" placeholder="Type your post here" />
+        <input type="submit" value="OK" />
+      </form>
+    </div>
+    <script>
+  // Wait for the DOM to load
+  document.addEventListener("DOMContentLoaded", function() {
+    <% submissions.forEach(submission => { %>
+      // Select the button by ID using submission.title
+      const <%= submission.title %> = document.getElementById("<%= submission.title %>");
+      
+      
+      // Attach a click event listener to the button
+      <%= submission.title %>.addEventListener("click", function() {
+        const <%= submission.article %> = document.getElementById("<%= submission.article %>");
+      });
+    <% }) %>
+  });
+    </script>
+        <%- include("partials/footer.ejs") %>
