@@ -75,18 +75,7 @@ Tech Blog
       </form>
     </div>
     <script>
-  // Wait for the DOM to load
-  document.addEventListener("DOMContentLoaded", function() {
-    <% submissions.forEach(submission => { %>
-      // Select the button by ID using submission.title
-      const <%= submission.title %> = document.getElementById("<%= submission.title %>");
-      
-      
-      // Attach a click event listener to the button
-      <%= submission.title %>.addEventListener("click", function() {
-        const <%= submission.article %> = document.getElementById("<%= submission.article %>");
-      });
-    <% }) %>
-  });
+      window.submissions = <%- JSON.stringify(submissions) %>;
     </script>
+    <script src="/public/script.js"></script>
         <%- include("partials/footer.ejs") %>
