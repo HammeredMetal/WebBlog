@@ -1,55 +1,59 @@
 <%- include("partials/header.ejs") %>
 
-<div id="Div1">
+<div class="container d-flex flex-row mb-3">
+<div id="Div1" class="col-4 p-2">
+  <div class="list-group">
     <h2>Articles</h2>
     <form action="/nav" method="POST">
-    <ul>
+
       <% submissions.forEach(function(submission) { %>
-        <li><a href="/?id=<%= submission.id %>"><%= submission.title %></a></li>
+        <a href="/?id=<%= submission.id %>" class="list-group-item list-group-item-action"><%= submission.title %></a>
       <% }); %>
-    </ul>
+  
     </form>
+    </div>
    </div>
 
-
-<div id="Div2">
+<div id="Div2" class="col p-2">
     <h1>
 Tech Blog
     </h1>
 
     <!-- Display selected post -->
     <% if (locals.selectedPost) { %>
-      <h2>Selected Post</h2>
       <h3><%= selectedPost.title %></h3>
       <p><%= selectedPost.article %></p>
 
+    <div class="row">
       <!-- Edit Post Button-->
-      <h1>Edit Post</h1>
-      <form action="/edit" method="POST">
-        <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
-        <input type="submit" name="edit" value="Edit"/>
-      </form>
+      <div class="col">
+        <form action="/edit" method="POST">
+         <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
+          <input type="submit" name="edit" value="Edit Post"/>
+        </form>
+      </div>
 
-      <!-- Delete Post Button-->
-    <h1>Delete Post</h1>
+      
+    <!-- Delete Post Button-->
+    <div class="col">
     <form action="/delete" method="POST">
       <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
-      <input type="submit" name="delete"  value="Delete"/>
+      <input type="submit" name="delete"  value="Delete Post"/>
     </form>
-  <% } %>
+    <% } %>
+    </div>
+  </div>  
 
     <!-- Edit Post Functionality-->
     <% if (locals.editedTitle) { %>
-      <h1>Your Edit was Successful</h1>
-      <h1><%= editPostId %></h1>
-      <h1><%= editedTitle %></h1>
-      <h1><%= editedText %></h1>
+      <h2>Your Edit was Successful</h2>
+      <h3><%= editedTitle %></h3>
+      <p><%= editedText %></p>
       <% } else { %>
       <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
-        <h1>Edit Post</h1>
-        <h1><%= editPostId %></h1>
-        <h1><%= editTitle %></h1>
-        <h1><%= editArticle %></h1>
+        <h2>Edit Post</h2>
+        <h3><%= editTitle %></h3>
+        <p><%= editArticle %></p>
 
         <form action="/editSubmit" method="POST">
           <input type="hidden" name="editId" value="<%= editPostId %>" />
@@ -59,10 +63,9 @@ Tech Blog
         </form>
       <% } else {%>
           <% if (locals.latestSubmission) { %>
-            <h1>This is the title of your blog: <%= latestSubmission.title %></h1>
-            <h1>This is the text of your blog: <%= latestSubmission.article %></h1>
-        <% } else { %>
-        <h1>Landing Page</h1>
+            <h2>Submitted Post</h2> 
+            <h3><%= latestSubmission.title %></h3>
+            <p><%= latestSubmission.article %></p>
         <% } %>
       <% } %>
     <% } %>
@@ -74,8 +77,15 @@ Tech Blog
         <input type="submit" value="OK" />
       </form>
     </div>
+    
+
+
+
+  </div>
+
     <script>
       window.submissions = <%- JSON.stringify(submissions) %>;
     </script>
     <script src="/public/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <%- include("partials/footer.ejs") %>

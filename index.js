@@ -105,3 +105,10 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+// Push To Git 
+// 1. git status
+// 2. git add .
+// 3. or git add filename 
+// 4. git commit -m "Your message here"
+// 5. git push origin main 
