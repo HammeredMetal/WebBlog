@@ -1,87 +1,101 @@
 <%- include("partials/header.ejs") %>
+<body>
+<main>
 
-<div class="container d-flex flex-row mb-3">
-<div id="Div1" class="col-4 p-2">
-  <div class="list-group">
-    <h2>Articles</h2>
-    <form action="/nav" method="POST">
-
-      <% submissions.forEach(function(submission) { %>
-        <a href="/?id=<%= submission.id %>" class="list-group-item list-group-item-action"><%= submission.title %></a>
-      <% }); %>
+<div id="main" class="container">
   
-    </form>
-    </div>
-   </div>
+  <div id="nav">
+    <div class="list-group">
+      <h2>Articles</h2>
+      <form action="/newPost" method="POST">
+        <input type="submit" value="Submit New Post" id="newPost">
+      </form>
 
-<div id="Div2" class="col p-2">
-    <h1>
-Tech Blog
-    </h1>
-
-    <!-- Display selected post -->
-    <% if (locals.selectedPost) { %>
-      <h3><%= selectedPost.title %></h3>
-      <p><%= selectedPost.article %></p>
-
-    <div class="row">
-      <!-- Edit Post Button-->
-      <div class="col">
-        <form action="/edit" method="POST">
-         <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
-          <input type="submit" name="edit" value="Edit Post"/>
-        </form>
-      </div>
-
-      
-    <!-- Delete Post Button-->
-    <div class="col">
-    <form action="/delete" method="POST">
-      <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
-      <input type="submit" name="delete"  value="Delete Post"/>
-    </form>
-    <% } %>
-    </div>
-  </div>  
-
-    <!-- Edit Post Functionality-->
-    <% if (locals.editedTitle) { %>
-      <h2>Your Edit was Successful</h2>
-      <h3><%= editedTitle %></h3>
-      <p><%= editedText %></p>
-      <% } else { %>
-      <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
-        <h2>Edit Post</h2>
-        <h3><%= editTitle %></h3>
-        <p><%= editArticle %></p>
-
-        <form action="/editSubmit" method="POST">
-          <input type="hidden" name="editId" value="<%= editPostId %>" />
-          <input type="text" name="titleEdit" value="<%= editTitle %>" />
-          <textarea name="textEdit"><%= editArticle %></textarea>
-          <input type="submit" value="OK" />
-        </form>
-      <% } else {%>
-          <% if (locals.latestSubmission) { %>
-            <h2>Submitted Post</h2> 
-            <h3><%= latestSubmission.title %></h3>
-            <p><%= latestSubmission.article %></p>
-        <% } %>
-      <% } %>
-    <% } %>
-
-    <!-- SUBMIT AN ARTICLE -->
-      <form action="/submit" method="POST">
-        <input type="text" name="title" placeholder="Enter article title here" />
-        <input type="text" name="text" placeholder="Type your post here" />
-        <input type="submit" value="OK" />
+      <form action="/nav" method="POST">
+        <% submissions.forEach(function(submission) { %>
+          <a href="/?id=<%= submission.id %>" class="list-group-item list-group-item-action"><%= submission.title %></a>
+        <% }); %>
       </form>
     </div>
-    
+  </div>
 
+  <div id="div2">
+    <div id="dispPost">
+      <h1>
+      Tech Blog
+      </h1>
+      <p>If no posts stored, this will show submit post box. If posts stored, the selected article will display here</p>
 
+      <% if (locals.latestSubmission) { %>
+        <h2>Submitted Post</h2> 
+        <h3><%= latestSubmission.title %></h3>
+        <p><%= latestSubmission.article %></p>
+    <% } else {%>
+        <% if (locals.selectedPost) { %>
+      <div>
+        <!-- Display selected post -->
+        <h3><%= selectedPost.title %></h3>
+        <p><%= selectedPost.article %></p>
+      </div>
+
+      <div>
+        <!-- Edit Post Button-->
+        <div>
+          <form action="/edit" method="POST">
+            <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
+            <input type="submit" name="edit" value="Edit Post"/>
+          </form>
+        </div>
+        
+        <!-- Delete Post Button-->
+        <div>
+        <form action="/delete" method="POST">
+          <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
+          <input type="submit" name="delete"  value="Delete Post"/>
+        </form>
+      </div>
+    </div> 
+    <% } else { %>
+          <!-- SUBMIT AN ARTICLE -->
+          <form action="/submit" method="POST">
+            <input type="text" name="title" placeholder="Enter article title here" />
+            <input type="text" name="text" placeholder="Type your post here" />
+            <input type="submit" value="OK" />
+        <% } %>
+    <% } %>
+  </div> 
+
+    <div>
+      <!-- Edit Post Functionality-->
+      <% if (locals.editedTitle) { %>
+        <h2>Your Edit was Successful</h2>
+        <h3><%= editedTitle %></h3>
+        <p><%= editedText %></p>
+        <% } else { %>
+        <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
+          <h2>Edit Post</h2>
+          <h3><%= editTitle %></h3>
+          <p><%= editArticle %></p>
+
+          <form action="/editSubmit" method="POST">
+            <input type="hidden" name="editId" value="<%= editPostId %>" />
+            <input type="text" name="titleEdit" value="<%= editTitle %>" />
+            <textarea name="textEdit"><%= editArticle %></textarea>
+            <input type="submit" value="OK" />
+          </form>
+        <% } %>
+      <% } %>
+    </div>
 
   </div>
+
+
+  <div id="footer">
+    <p>Copyright © <%= new Date().getFullYear() %>
+    </p>
+  </div>
+
+</div>
 
     <script>
       window.submissions = <%- JSON.stringify(submissions) %>;

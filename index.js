@@ -27,6 +27,15 @@ app.post("/nav", (req, res) => {
   });
 });
 
+//New Post Button
+app.post("/newPost", (req,res) => {
+// latestSubmission = "";
+// selectedPost = "";
+//   console.log(latestSubmission);
+//   console.log(selectedPost);
+res.redirect("/");
+});
+
 //Render edit form
 app.post("/edit", (req, res) => {
   //on press of edit button, takes id of post to be edited
