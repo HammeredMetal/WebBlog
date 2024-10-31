@@ -20,86 +20,96 @@
   </div>
 
   <div id="div2">
-    <div id="dispPost">
+      <div>
       <h1>
       Tech Blog
       </h1>
       <p>If no posts stored, this will show submit post box. If posts stored, the selected article will display here</p>
-
-      <% if (locals.latestSubmission) { %>
-        <h2>Submitted Post</h2> 
-        <h3><%= latestSubmission.title %></h3>
-        <p><%= latestSubmission.article %></p>
-    <% } else {%>
-        <% if (locals.selectedPost) { %>
-      <div>
-        <!-- Display selected post -->
-        <h3><%= selectedPost.title %></h3>
-        <p><%= selectedPost.article %></p>
-      </div>
-
-      <div>
-        <!-- Edit Post Button-->
-        <div>
-          <form action="/edit" method="POST">
-            <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
-            <input type="submit" name="edit" value="Edit Post"/>
-          </form>
-        </div>
-        
-        <!-- Delete Post Button-->
-        <div>
-        <form action="/delete" method="POST">
-          <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
-          <input type="submit" name="delete"  value="Delete Post"/>
-        </form>
-      </div>
-    </div> 
-    <% } else { %>
-          <!-- SUBMIT AN ARTICLE -->
-          <form action="/submit" method="POST">
-            <input type="text" name="title" placeholder="Enter article title here" />
-            <input type="text" name="text" placeholder="Type your post here" />
-            <input type="submit" value="OK" />
-        <% } %>
-    <% } %>
-  </div> 
-
-    <div>
-      <!-- Edit Post Functionality-->
-      <% if (locals.editedTitle) { %>
-        <h2>Your Edit was Successful</h2>
-        <h3><%= editedTitle %></h3>
-        <p><%= editedText %></p>
-        <% } else { %>
-        <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
-          <h2>Edit Post</h2>
-          <h3><%= editTitle %></h3>
-          <p><%= editArticle %></p>
-
-          <form action="/editSubmit" method="POST">
-            <input type="hidden" name="editId" value="<%= editPostId %>" />
-            <input type="text" name="titleEdit" value="<%= editTitle %>" />
-            <textarea name="textEdit"><%= editArticle %></textarea>
-            <input type="submit" value="OK" />
-          </form>
-        <% } %>
-      <% } %>
     </div>
 
+      <% if (locals.latestSubmission) { %>
+        <div class="content">
+          <h2>Submitted Post</h2> 
+          <h3><%= latestSubmission.title %></h3>
+          <p><%= latestSubmission.article %></p>
+        </div>
+      <% } else {%>
+
+        <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
+          <div class="content">
+            <h2>Edit Post</h2>
+            <h3><%= editTitle %></h3>
+            <p><%= editArticle %></p>
+          </div>
+          <div>
+            <form action="/editSubmit" method="POST">
+              <input type="hidden" name="editId" value="<%= editPostId %>" />
+              <input type="text" name="titleEdit" value="<%= editTitle %>" />
+              <textarea name="textEdit"><%= editArticle %></textarea>
+              <input type="submit" value="OK" />
+            </form>
+          </div>
+          <% } else { %>
+
+
+        <% if (locals.selectedPost) { %>
+            <div class="content">
+              <!-- Display selected post -->
+               <h2>Selected Post</h2>
+              <h3><%= selectedPost.title %></h3>
+              <p><%= selectedPost.article %></p>
+            </div>
+
+            <div id="editDelete">
+              <!-- Edit Post Button-->
+              <div>
+                <form action="/edit" method="POST">
+                  <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
+                  <input type="submit" name="edit" value="Edit Post"/>
+                </form>
+              </div>
+        
+              <!-- Delete Post Button-->
+              <div>
+                <form action="/delete" method="POST">
+                  <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
+                  <input type="submit" name="delete"  value="Delete Post"/>
+                </form>
+              </div>
+            </div> 
+        <% } else {%>
+            <!-- Edit Post Functionality-->
+            <% if (locals.editedTitle) { %>
+              <div>
+                <h2>Your Edit was Successful</h2>
+                <h3><%= editedTitle %></h3>
+                <p><%= editedText %></p>
+              </div>
+                <% } else { %>
+                    <div class="content form">
+                          <!-- SUBMIT AN ARTICLE -->
+                          <form action="/submit" method="POST">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Enter article title here</label>
+                              <input type="email" class="form-control" name="title">
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleFormControlTextarea1" class="form-label">Type your post here</label>
+                              <textarea class="form-control" name="text" rows="15"></textarea>
+                            </div>
+                            <div class="mb-3">
+                            <input type="submit" value="OK" />
+                            </div>
+                          </form>
+                    </div>
+                        <% } %>
+                    <% } %>
+                  <% } %>
+                <% } %>
+    <div id="footer">
+      <p>Copyright © <%= new Date().getFullYear() %>
+      </p>
+    </div>
   </div>
-
-
-  <div id="footer">
-    <p>Copyright © <%= new Date().getFullYear() %>
-    </p>
-  </div>
-
 </div>
-
-    <script>
-      window.submissions = <%- JSON.stringify(submissions) %>;
-    </script>
-    <script src="/public/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <%- include("partials/footer.ejs") %>
+</main>

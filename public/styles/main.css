@@ -13,6 +13,7 @@
     background-color: #5D0E41;
     border-radius: 25px;
     height: 100vh;
+    padding: 10px;
 }
 
 #div2 {
@@ -21,15 +22,34 @@
     flex-direction: column;
     height: 100vh;
     border-radius: 25px;
+    padding: 10px;
+}
+
+#dispPost {
+    background-color: #D1D5DC;
+    height: 100vh;
+}
+
+#editDelete {
+    display: flex;
+    flex-direction: row;
+    background-color: antiquewhite;
+    justify-content: center;
+}
+
+.content {
+    height: 100vh;
 }
 
 #footer {
     height: 40px;
     background-color: #D1D5DC;
-    grid-column: span 2;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
+ .form {
+    display: flex;
+    flex-direction: column;
+ }
 
-#dispPost {
-    background-color: #D1D5DC;
-}
 

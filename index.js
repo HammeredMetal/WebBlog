@@ -29,10 +29,6 @@ app.post("/nav", (req, res) => {
 
 //New Post Button
 app.post("/newPost", (req,res) => {
-// latestSubmission = "";
-// selectedPost = "";
-//   console.log(latestSubmission);
-//   console.log(selectedPost);
 res.redirect("/");
 });
 
