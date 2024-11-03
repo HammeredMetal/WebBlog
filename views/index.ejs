@@ -6,9 +6,14 @@
   
   <div id="nav">
     <div class="list-group">
+      <div>
+        <img src="/keyboard-70506_1280.jpg">
+      </div>
+      <div id="Articles">
       <h2>Articles</h2>
+    </div>
       <form action="/newPost" method="POST">
-        <input type="submit" value="Submit New Post" id="newPost">
+        <input type="submit" value="Submit New Post" id="newPost" class="button">
       </form>
 
       <form action="/nav" method="POST">
@@ -24,28 +29,33 @@
       <h1>
       Tech Blog
       </h1>
-      <p>If no posts stored, this will show submit post box. If posts stored, the selected article will display here</p>
+      <p>This site is built on node.js with EJS templating and is hosted on Render</p>
     </div>
 
       <% if (locals.latestSubmission) { %>
         <div class="content">
-          <h2>Submitted Post</h2> 
-          <h3><%= latestSubmission.title %></h3>
+          <h3>Submitted Post</h3> 
+          <h4><%= latestSubmission.title %></h4>
           <p><%= latestSubmission.article %></p>
         </div>
       <% } else {%>
 
         <% if (typeof editPostId !== "undefined" && editPostId !== null) { %>
           <div class="content">
-            <h2>Edit Post</h2>
-            <h3><%= editTitle %></h3>
-            <p><%= editArticle %></p>
+            <h3>Edit Post</h3>
           </div>
           <div>
             <form action="/editSubmit" method="POST">
               <input type="hidden" name="editId" value="<%= editPostId %>" />
-              <input type="text" name="titleEdit" value="<%= editTitle %>" />
-              <textarea name="textEdit"><%= editArticle %></textarea>
+              <div class="mb-3">
+                Edit your post title
+                <textarea class="form-control" name="titleEdit" rows="1"><%= editTitle %></textarea>
+              </div>
+              <div class="mb-3">
+                Edit your post
+                <textarea class="form-control" name="textEdit" rows="15"><%= editArticle %></textarea>
+              </div>
+              <div class="mb-3">
               <input type="submit" value="OK" />
             </form>
           </div>
@@ -55,8 +65,8 @@
         <% if (locals.selectedPost) { %>
             <div class="content">
               <!-- Display selected post -->
-               <h2>Selected Post</h2>
-              <h3><%= selectedPost.title %></h3>
+               <h3>Selected Post</h3>
+              <h4><%= selectedPost.title %></h4>
               <p><%= selectedPost.article %></p>
             </div>
 
@@ -65,7 +75,7 @@
               <div>
                 <form action="/edit" method="POST">
                   <input type="hidden" name="editId" value="<%= selectedPost.id %>"/>
-                  <input type="submit" name="edit" value="Edit Post"/>
+                  <input type="submit" name="edit" value="Edit Post" class="button"/>
                 </form>
               </div>
         
@@ -73,15 +83,15 @@
               <div>
                 <form action="/delete" method="POST">
                   <input type="hidden" name="deleteId" value="<%= selectedPost.id %>"/>
-                  <input type="submit" name="delete"  value="Delete Post"/>
+                  <input type="submit" name="delete"  value="Delete Post" class="button" />
                 </form>
               </div>
             </div> 
         <% } else {%>
             <!-- Edit Post Functionality-->
             <% if (locals.editedTitle) { %>
-              <div>
-                <h2>Your Edit was Successful</h2>
+              <div class="content">
+                <h3>Your Edit was Successful</h3>
                 <h3><%= editedTitle %></h3>
                 <p><%= editedText %></p>
               </div>
@@ -91,7 +101,7 @@
                           <form action="/submit" method="POST">
                             <div class="mb-3">
                               <label for="exampleFormControlInput1" class="form-label">Enter article title here</label>
-                              <input type="email" class="form-control" name="title">
+                              <textarea class="form-control" name="title" rows="1"></textarea>
                             </div>
                             <div class="mb-3">
                               <label for="exampleFormControlTextarea1" class="form-label">Type your post here</label>

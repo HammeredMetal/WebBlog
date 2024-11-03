@@ -58,7 +58,11 @@ app.post("/editSubmit", (req, res) => {
     console.log("Error: Title or text is undefined");
   };
 
-  res.redirect("/");
+  //res.redirect("/");
+  renderIndex(res, { 
+    editedTitle: editedTitle, 
+    editedText: editedText,
+    });
 });
 
 //Delete Posts

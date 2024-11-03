@@ -1,4 +1,7 @@
-
+html body {
+    background-color: black;
+    
+}
 
 #main {
     display: grid;
@@ -10,19 +13,19 @@
 }
 
 #nav {
-    background-color: #5D0E41;
+    background-color: #273043;
     border-radius: 25px;
-    height: 100vh;
-    padding: 10px;
+    border: solid black 5px;
 }
 
 #div2 {
-    background-color: #8A95A5;
+    background-color: #9197AE;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: auto;
     border-radius: 25px;
     padding: 10px;
+    border: solid black 5px;
 }
 
 #dispPost {
@@ -33,23 +36,58 @@
 #editDelete {
     display: flex;
     flex-direction: row;
-    background-color: antiquewhite;
+    background-color: #9197AE;
     justify-content: center;
+    height: 100%;
 }
 
 .content {
-    height: 100vh;
+    height: auto;
 }
 
 #footer {
-    height: 40px;
-    background-color: #D1D5DC;
+    height: auto;
+    background-color: #9197AE;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
 }
+
+#Articles {
+    padding: 10px;
+}
+
  .form {
     display: flex;
     flex-direction: column;
  }
 
+#newPost {
+    width: 100%;
+    border: none;
+}
 
+html h1 {
+    color: #EFF6EE;
+}
+
+html h2 {
+    color: #F02D3A;
+}
+
+html h3 {
+    color: #EFF6EE;
+}
+
+html h4 {
+    color: #273043;
+}
+
+.button {
+    color: #273043;
+    font-size: large;
+    font-weight: 500;
+}
+
+img {
+    width: 100%;
+}
