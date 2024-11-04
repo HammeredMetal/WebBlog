@@ -121,3 +121,11 @@ app.listen(port, () => {
 // 3. or git add filename 
 // 4. git commit -m "Your message here"
 // 5. git push origin main 
+
+
+
+//EDITS NEEDED
+//Edit Page - footer not at bottom. title of article needs to be smaller
+//move edit/post buttons to vertical centre 
+//move text below H1 to bottom of Nav and pad bottom of H1
+//Submit New Post justify left
